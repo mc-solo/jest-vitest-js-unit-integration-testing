@@ -1,0 +1,105 @@
+{
+    "calculateDiscount": [
+        {
+            "expected": 80,
+            "percent": 20,
+            "price": 100
+        },
+        {
+            "expected": 50,
+            "percent": 0,
+            "price": 50
+        },
+        {
+            "expected": 0,
+            "percent": 100,
+            "price": 50
+        },
+        {
+            "expected": 16.99,
+            "percent": 15,
+            "price": 19.99
+        }
+    ],
+    "chunkArray": {
+        "evenExpected": [
+            [
+                1,
+                2
+            ],
+            [
+                3,
+                4
+            ]
+        ],
+        "evenInput": [
+            1,
+            2,
+            3,
+            4
+        ],
+        "evenSize": 2,
+        "numbers": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "oversizeExpected": [
+            [
+                1,
+                2
+            ]
+        ],
+        "remainderExpected": [
+            [
+                1,
+                2
+            ],
+            [
+                3,
+                4
+            ],
+            [
+                5
+            ]
+        ]
+    },
+    "formatPrice": [
+        {
+            "expected": "$12.00",
+            "input": 12
+        },
+        {
+            "expected": "$12.50",
+            "input": 12.5
+        },
+        {
+            "expected": "$3.46",
+            "input": 3.456
+        },
+        {
+            "expected": "$0.00",
+            "input": 0
+        }
+    ],
+    "slugify": [
+        {
+            "expected": "hello-world",
+            "input": "Hello World"
+        },
+        {
+            "expected": "hello-world-test",
+            "input": "Hello,  World! -- Test"
+        },
+        {
+            "expected": "my-post",
+            "input": "  --My Post--  "
+        },
+        {
+            "expected": "",
+            "input": ""
+        }
+    ]
+}

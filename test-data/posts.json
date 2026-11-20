@@ -1,0 +1,45 @@
+{
+    "createdPost": {
+        "body": "post",
+        "id": 101,
+        "title": "new",
+        "userId": 1
+    },
+    "errorPayloads": {
+        "empty": {},
+        "notFound": {
+            "message": "not found"
+        }
+    },
+    "errorStatus": {
+        "badRequest": 400,
+        "notFound": 404,
+        "serverError": 500
+    },
+    "newPost": {
+        "body": "post",
+        "title": "new",
+        "userId": 1
+    },
+    "notFoundPostId": 9999,
+    "postList": [
+        {
+            "body": "a",
+            "id": 1,
+            "title": "one",
+            "userId": 1
+        },
+        {
+            "body": "b",
+            "id": 2,
+            "title": "two",
+            "userId": 1
+        }
+    ],
+    "singlePost": {
+        "body": "world",
+        "id": 1,
+        "title": "hello",
+        "userId": 1
+    }
+}

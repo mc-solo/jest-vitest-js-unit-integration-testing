@@ -1,1 +1,19 @@
-{"description":"Unit and integration testing practice in TypeScript with Vitest (repo named jest-vitest; Vitest is the runner).","devDependencies":{"@vitest/coverage-v8":"^4.0.18","typescript":"^5.9.3","vitest":"^4.0.18"},"name":"jest-vitest-js-unit-integration-testing","private":true,"scripts":{"test":"vitest run","test:coverage":"vitest run --coverage","test:watch":"vitest"},"type":"module","version":"1.0.0"}
+{
+  "description": "Unit and integration testing practice in TypeScript with Vitest (repo named jest-vitest; Vitest is the runner).",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^4.0.18",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "name": "jest-vitest-js-unit-integration-testing",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}

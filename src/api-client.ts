@@ -1,4 +1,8 @@
-const BASE_URL = "https://jsonplaceholder.typicode.com";
+import { API_BASE_URL } from "../config/test.config";
+
+// Base URL comes from config/test.config.ts (TEST_ENV preset, overridable
+// with API_BASE_URL). Never hard-code a URL here.
+const BASE_URL = API_BASE_URL;
 
 export interface Post {
   userId: number;

@@ -1,0 +1,33 @@
+{
+    "invalidEmails": [
+        "userexample.com",
+        "user@",
+        "@example.com",
+        "user@example",
+        "user @example.com",
+        "",
+        "user@.example.com",
+        "user@example.",
+        "a@b@c.com"
+    ],
+    "validUsers": [
+        {
+            "email": "user@example.com",
+            "id": 1,
+            "name": "Leanne Graham",
+            "username": "Bret"
+        },
+        {
+            "email": "first.last+tag@mail.example.co.uk",
+            "id": 2,
+            "name": "Ervin Howell",
+            "username": "Antonette"
+        },
+        {
+            "email": "name@sub.domain.com",
+            "id": 3,
+            "name": "Clementine Bauch",
+            "username": "Samantha"
+        }
+    ]
+}
