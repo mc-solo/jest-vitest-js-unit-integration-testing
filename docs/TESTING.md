@@ -7,7 +7,14 @@ it automatically.
 
 ## What is tested
 
-### `tests/utils.test.ts` — unit tests (21 tests)
+### `tests/utils.test.ts` — unit tests (25 tests)
+
+Snapshot tests are included: the outputs for the cases in
+`test-data/snapshots.json` are recorded in
+`tests/__snapshots__/utils.test.ts.snap` on the first run and compared
+on every run after that. Update a snapshot only when the code changed
+its output on purpose (`vitest run -u`); a mismatch after an
+accidental change means fix the code, not the snapshot.
 
 Pure functions in `src/utils.ts`, happy path and edge cases:
 
@@ -34,6 +41,15 @@ Plus **one live test**: a real `GET` against the configured API
 unavailable it logs `live test skipped: network unavailable` and passes
 instead of failing, so the suite stays green offline.
 
+### `tests/api-client.mock.test.ts` — mocked tests (5 tests)
+
+Same client, fully mocked `fetch`, so **no live call is ever made**:
+`getPost` returns the mocked post and calls the configured URL,
+throws with the status on a 404; `getPosts` returns the mocked list
+and returns an empty list when the API returns one; `createPost`
+throws with the status on a 500. Fixtures live in
+`test-data/posts.json` and `test-data/snapshots.json`.
+
 ## Test data
 
 No test data is hard-coded in the test files. Fixtures live in `test-data/`:
@@ -41,6 +57,7 @@ No test data is hard-coded in the test files. Fixtures live in `test-data/`:
 - `posts.json` — single post, post list, new/created post, error payloads and status codes, the not-found post id
 - `users.json` — valid users (emails) and the list of invalid emails
 - `expected-values.json` — expected inputs/outputs for `formatPrice`, `slugify`, `calculateDiscount`, `chunkArray`
+- `snapshots.json` — inputs for the snapshot tests and the mocked posts for `api-client.mock.test.ts`
 
 To change a fixture, edit the JSON; the tests pick it up with no code change.
 
@@ -58,6 +75,12 @@ npm run typecheck     # tsc --noEmit, must pass too
 Thresholds in `vitest.config.ts`: 70% lines, functions, branches,
 statements. Verified 2026-11-20: **28/28 tests passed, 100% on all four
 coverage metrics** (`src/api-client.ts` and `src/utils.ts`).
+
+The snapshot tests (4) and the mocked API client tests (5) were
+added after that run and have **not been run yet**; the suite is
+37 tests on paper (25 unit + 7 api-client + 5 mocked) until it is
+run again, and the snapshot file `tests/__snapshots__/utils.test.ts.snap`
+does not exist yet — it is created on the first run.
 
 ## Adding a new test
 

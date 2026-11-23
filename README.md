@@ -8,8 +8,8 @@ Unit and integration testing practice in TypeScript with Vitest. The repo is nam
 ├── config/            # environments.ts (default/local/ci presets), test.config.ts (resolved config)
 ├── docs/              # SETUP.md, TESTING.md
 ├── src/               # api-client.ts, utils.ts (code under test)
-├── test-data/         # posts.json, users.json, expected-values.json
-├── tests/             # api-client.test.ts, utils.test.ts
+├── test-data/         # posts.json, users.json, expected-values.json, snapshots.json
+├── tests/             # api-client.test.ts, api-client.mock.test.ts, utils.test.ts
 ├── .env.example       # env vars with safe defaults
 ├── ARCHITECTURE.md    # folder map, data flow, how to add a test
 ├── tsconfig.json
@@ -20,8 +20,9 @@ Unit and integration testing practice in TypeScript with Vitest. The repo is nam
 
 - `src/utils.ts` - small pure functions: `formatPrice`, `slugify`, `isValidEmail`, `calculateDiscount`, `chunkArray`.
 - `src/api-client.ts` - a small fetch client for the JSONPlaceholder API (`getPost`, `getPosts`, `createPost`) with error handling for non-OK responses. The base URL comes from `config/test.config.ts`, never hard-coded.
-- `tests/utils.test.ts` - unit tests for every function in `utils.ts`, happy path and edge cases, driven by `test-data/expected-values.json` and `test-data/users.json`.
+- `tests/utils.test.ts` - unit tests for every function in `utils.ts`, happy path and edge cases, driven by `test-data/expected-values.json` and `test-data/users.json`, plus snapshot tests for the outputs in `test-data/snapshots.json`.
 - `tests/api-client.test.ts` - integration-style tests with mocked `fetch`, plus one live test against the real JSONPlaceholder API that logs a skip warning instead of failing when the network is unavailable. Fixtures live in `test-data/posts.json`.
+- `tests/api-client.mock.test.ts` - fully mocked API client tests (no live call ever): getPost / getPosts / createPost success and error paths, fixtures in `test-data/snapshots.json`.
 - `config/` - base URL and timeouts. Pick a preset with `TEST_ENV` (`default`, `local`, `ci`) or override with `API_BASE_URL` / `API_TIMEOUT_MS` / `LIVE_TEST_TIMEOUT_MS` (see `.env.example`).
 
 ## Setup
@@ -50,3 +51,8 @@ connect: [ARCHITECTURE.md](ARCHITECTURE.md).
 - `npm run test:coverage`: **28/28 tests passed** (21 unit + 7 api-client, including the live-network test), **100% coverage** on lines, functions, branches, and statements.
 - `npx tsc --noEmit`: **OK**, no errors.
 - Env override check: suite still passes 28/28 with `API_BASE_URL=https://example.invalid` (mocked tests follow the configured URL; the live test skips gracefully offline).
+
+The snapshot tests (4) and mocked API client tests (5) were added
+after that run and have not been run yet; the suite is 37 tests on
+paper until it is run again, and the snapshot file is created on
+the first run.

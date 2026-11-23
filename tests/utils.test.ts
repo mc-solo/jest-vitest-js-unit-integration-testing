@@ -8,6 +8,7 @@ import {
 } from "../src/utils";
 import cases from "../test-data/expected-values.json";
 import usersData from "../test-data/users.json";
+import snapshots from "../test-data/snapshots.json";
 
 describe("formatPrice", () => {
   it("formats a whole number with two decimals", () => {
@@ -127,5 +128,38 @@ describe("chunkArray", () => {
     expect(() => chunkArray([1], 0)).toThrow();
     expect(() => chunkArray([1], -1)).toThrow();
     expect(() => chunkArray([1], 1.5)).toThrow();
+  });
+});
+
+// Snapshot tests: the outputs for the cases in
+// test-data/snapshots.json are recorded in
+// tests/__snapshots__/utils.test.ts.snap on the first run and
+// compared on every run after that. If a snapshot mismatches, the
+// code changed its output on purpose (update with `vitest -u`) or
+// by accident (fix the code, not the snapshot).
+describe("snapshots", () => {
+  it("matches the snapshot for formatPrice outputs", () => {
+    expect(
+      snapshots.formatPrice.map((c) => formatPrice(c.input)),
+    ).toMatchSnapshot();
+  });
+
+  it("matches the snapshot for slugify outputs", () => {
+    expect(
+      snapshots.slugify.map((c) => slugify(c.input)),
+    ).toMatchSnapshot();
+  });
+
+  it("matches the snapshot for calculateDiscount outputs", () => {
+    expect(
+      snapshots.calculateDiscount.map((c) =>
+        calculateDiscount(c.price, c.percent),
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it("matches the snapshot for chunkArray output", () => {
+    const c = snapshots.chunkArray;
+    expect(chunkArray(c.input, c.size)).toMatchSnapshot();
   });
 });

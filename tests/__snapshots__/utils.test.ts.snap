@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`snapshots > matches the snapshot for calculateDiscount outputs 1`] = `
+[
+  80,
+  50.99,
+]
+`;
+
+exports[`snapshots > matches the snapshot for chunkArray output 1`] = `
+[
+  [
+    1,
+    2,
+  ],
+  [
+    3,
+    4,
+  ],
+  [
+    5,
+  ],
+]
+`;
+
+exports[`snapshots > matches the snapshot for formatPrice outputs 1`] = `
+[
+  "$12.50",
+  "$0.00",
+  "$99.99",
+]
+`;
+
+exports[`snapshots > matches the snapshot for slugify outputs 1`] = `
+[
+  "hello-world",
+  "spaced-out",
+]
+`;
