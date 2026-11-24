@@ -5,6 +5,11 @@
         "title": "new",
         "userId": 1
     },
+    "errorMessages": {
+        "malformedJson": "Unexpected token < in JSON at position 0",
+        "network": "fetch failed",
+        "timeout": "The operation timed out"
+    },
     "errorPayloads": {
         "empty": {},
         "notFound": {
@@ -15,6 +20,10 @@
         "badRequest": 400,
         "notFound": 404,
         "serverError": 500
+    },
+    "errorStatusText": {
+        "notFound": "Not Found",
+        "serverError": "Internal Server Error"
     },
     "newPost": {
         "body": "post",
@@ -41,5 +50,6 @@
         "id": 1,
         "title": "hello",
         "userId": 1
-    }
+    },
+    "timeoutErrorName": "TimeoutError"
 }

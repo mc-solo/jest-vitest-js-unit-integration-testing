@@ -9,7 +9,7 @@ Unit and integration testing practice in TypeScript with Vitest. The repo is nam
 ├── docs/              # SETUP.md, TESTING.md
 ├── src/               # api-client.ts, utils.ts (code under test)
 ├── test-data/         # posts.json, users.json, expected-values.json, snapshots.json
-├── tests/             # api-client.test.ts, api-client.mock.test.ts, utils.test.ts
+├── tests/             # api-client.test.ts, api-client.mock.test.ts, api-client.errors.test.ts, utils.test.ts
 ├── .env.example       # env vars with safe defaults
 ├── ARCHITECTURE.md    # folder map, data flow, how to add a test
 ├── tsconfig.json
@@ -23,6 +23,7 @@ Unit and integration testing practice in TypeScript with Vitest. The repo is nam
 - `tests/utils.test.ts` - unit tests for every function in `utils.ts`, happy path and edge cases, driven by `test-data/expected-values.json` and `test-data/users.json`, plus snapshot tests for the outputs in `test-data/snapshots.json`.
 - `tests/api-client.test.ts` - integration-style tests with mocked `fetch`, plus one live test against the real JSONPlaceholder API that logs a skip warning instead of failing when the network is unavailable. Fixtures live in `test-data/posts.json`.
 - `tests/api-client.mock.test.ts` - fully mocked API client tests (no live call ever): getPost / getPosts / createPost success and error paths, fixtures in `test-data/snapshots.json`.
+- `tests/api-client.errors.test.ts` - error-handling integration tests, fully mocked `fetch` (no live call ever): network error, 404, 500, timeout, and malformed JSON. Status codes, status texts, and error messages come from `test-data/posts.json`.
 - `config/` - base URL and timeouts. Pick a preset with `TEST_ENV` (`default`, `local`, `ci`) or override with `API_BASE_URL` / `API_TIMEOUT_MS` / `LIVE_TEST_TIMEOUT_MS` (see `.env.example`).
 
 ## Setup
@@ -39,7 +40,7 @@ Full setup guide: [docs/SETUP.md](docs/SETUP.md).
 ```bash
 npm test              # full suite
 npm run test:watch    # watch mode
-npm run test:coverage # suite + coverage report (thresholds: 70% lines, functions, branches, statements)
+npm run test:coverage # suite + coverage report (thresholds: 100% lines, functions, branches, statements)
 npm run typecheck     # tsc --noEmit
 ```
 
@@ -53,6 +54,22 @@ connect: [ARCHITECTURE.md](ARCHITECTURE.md).
 - Env override check: suite still passes 28/28 with `API_BASE_URL=https://example.invalid` (mocked tests follow the configured URL; the live test skips gracefully offline).
 
 The snapshot tests (4) and mocked API client tests (5) were added
-after that run and have not been run yet; the suite is 37 tests on
-paper until it is run again, and the snapshot file is created on
-the first run.
+after that run and have not been run yet, and the error integration work
+error-handling tests (8, issue #4) have not been run yet either; the
+suite is 45 tests on paper until it is run again. Coverage
+thresholds were raised from 70% to 100% in the error integration work to match the
+verified 100% level above, so the suite now fails if coverage
+drops below 100% on any of the four metrics.
+
+## Diagram
+
+```mermaid
+flowchart LR
+    ENV[.env] --> CFG[config/]
+    CFG --> SRC[src/]
+    TD[test-data/] --> TST[tests/]
+    SRC --> TST
+    TST --> VIT[Vitest]
+    VIT --> COV[coverage 100%]
+    VIT --> SNAP[snapshots]
+```
